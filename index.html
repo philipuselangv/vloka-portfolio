@@ -35,6 +35,7 @@ nav{
   background:linear-gradient(180deg,#0c0c1e,#040407);
   padding:48px 36px;
   border-right:1px solid rgba(255,255,255,.08);
+  z-index:5;
 }
 
 .logo{
@@ -71,16 +72,19 @@ nav{
 /* ===== MAIN ===== */
 main{flex:1;position:relative;overflow:hidden}
 
-/* BACKGROUND */
+/* ===== BACKGROUND (DESKTOP & MOBILE) ===== */
 .hero-bg{
   position:absolute;
   inset:0;
   background:
-    radial-gradient(circle at 30% 20%,rgba(80,80,255,.15),transparent 40%),
+    linear-gradient(
+      rgba(4,4,7,.55),
+      rgba(4,4,7,.75)
+    ),
     url("assets/images/background.png");
   background-size:cover;
-  background-position:center;
-  filter:brightness(.35);
+  background-position:center 25%;
+  background-repeat:no-repeat;
   z-index:0;
 }
 
@@ -234,8 +238,10 @@ button{
 
   .page{padding:80px 24px}
   h1{font-size:48px}
-  .hero-bg,.hero-noise{display:none}
-  body{background:radial-gradient(circle at top,#14142e,#040407 70%)}
+
+  /* BACKGROUND TETAP AKTIF DI MOBILE */
+  body{overflow:auto}
+
   .gallery{grid-template-columns:1fr}
 }
 </style>
@@ -264,7 +270,7 @@ button{
 
   <section class="page active" id="home">
     <h1>VLOKA</h1>
-    <div class="subtitle">Intimate tales. Midnight melodies.</div>
+    <div class="subtitle">Songs for quiet nights and unfinished thoughts.</div>
   </section>
 
   <section class="page" id="about">
