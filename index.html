@@ -1,60 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VLOKA</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0e0e0e;
-      color: #f2f2f2;
-      text-align: center;
-    }
-    section {
-      padding: 80px 20px;
-    }
-    h1 {
-      font-size: 48px;
-      letter-spacing: 4px;
-    }
-    a {
-      color: #aaa;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-    a:hover {
-      color: white;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VLOKA</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0a0a0a;
+  --fg: #f1f1f1;
+  --muted: #9a9a9a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+}
+
+/* subtle grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+section {
+  max-width: 960px;
+  margin: auto;
+  padding: 72px 24px;
+}
+
+.hero {
+  text-align: center;
+  padding: 120px 24px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  letter-spacing: 6px;
+  margin-bottom: 8px;
+}
+
+.tagline {
+  font-style: italic;
+  color: var(--muted);
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+.embed {
+  margin: 32px 0;
+}
+
+iframe {
+  width: 100%;
+  border-radius: 14px;
+  border: none;
+}
+
+.links a {
+  color: var(--muted);
+  text-decoration: none;
+  margin-right: 16px;
+}
+
+.links a:hover {
+  color: white;
+}
+
+form {
+  max-width: 420px;
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  background: #111;
+  border: 1px solid #333;
+  color: white;
+}
+
+button {
+  cursor: pointer;
+  background: #1a1a1a;
+  letter-spacing: 2px;
+}
+
+footer {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+</style>
 </head>
+
 <body>
 
-<section>
+<section class="hero">
   <h1>VLOKA</h1>
-  <p><em>Intimate tales. Midnight melodies.</em></p>
+  <p class="tagline">Intimate tales. Midnight melodies.</p>
 </section>
 
 <section>
-  <h2>About</h2>
+  <h2>ABOUT</h2>
   <p>
-    VLOKA is a folk / indie pop / slow rock artist from Indonesia,
-    crafting intimate stories and midnight melodies.
+    VLOKA is a folk, indie pop, and slow rock artist from Indonesia.
+    His music explores intimate storytelling and late-night emotions.
   </p>
 </section>
 
 <section>
-  <h2>Music</h2>
-  <a href="https://open.spotify.com/artist/08AdZXkj1GugZSMDYXoaHS" target="_blank">Spotify</a>
-  <a href="https://www.youtube.com/@anangloka" target="_blank">YouTube</a>
-  <a href="https://music.apple.com/id/artist/vloka/1669532196" target="_blank">Apple Music</a>
+  <h2>MUSIC</h2>
+
+  <!-- SPOTIFY -->
+  <div class="embed">
+    <iframe
+      src="https://open.spotify.com/embed/artist/08AdZXkj1GugZSMDYXoaHS"
+      height="380"
+      allow="encrypted-media">
+    </iframe>
+  </div>
+
+  <!-- YOUTUBE (NO AUTOPLAY FOR LOCAL SAFETY) -->
+  <div class="embed">
+    <iframe
+      height="420"
+      src="https://www.youtube.com/embed/k6ARrNHHE8M?controls=1&playsinline=1"
+      allow="encrypted-media"
+      allowfullscreen>
+    </iframe>
+    <p style="color:#777;font-size:14px">
+      ▶ Autoplay will activate on live website
+    </p>
+  </div>
+
+  <!-- APPLE MUSIC BIG -->
+  <div class="embed">
+    <iframe
+      height="420"
+      allow="encrypted-media"
+      src="https://embed.music.apple.com/id/artist/vloka/1669532196">
+    </iframe>
+  </div>
+
+  <div class="links">
+    <a href="https://open.spotify.com/artist/08AdZXkj1GugZSMDYXoaHS" target="_blank">Spotify</a>
+    <a href="https://www.youtube.com/@anangloka" target="_blank">YouTube</a>
+    <a href="https://music.apple.com/id/artist/vloka/1669532196" target="_blank">Apple Music</a>
+  </div>
 </section>
 
 <section>
-  <h2>Booking</h2>
-  <p>Email: booking@vloka.com</p>
+  <h2>BOOKING</h2>
+  <form action="https://formsubmit.co/philipuselangv@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="Booking Request - VLOKA">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Event / booking details" required></textarea>
+    <button type="submit">SEND</button>
+  </form>
 </section>
+
+<footer>
+  © VLOKA — All Rights Reserved
+</footer>
 
 </body>
 </html>
