@@ -9,219 +9,222 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-:root {
-  --bg: #050508;
-  --panel: #0f0f1f;
-  --fg: #f4f4ff;
-  --muted: #9b9bb5;
-  --accent: #6b6bff;
+:root{
+  --bg:#040407;
+  --panel:#0b0b18;
+  --fg:#f4f4ff;
+  --muted:#9b9bb5;
+  --accent:#6b6bff;
 }
 
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at top, #14142e, #050508 75%);
-  color: var(--fg);
-  height: 100vh;
-  overflow: hidden;
+body{
+  margin:0;
+  font-family:Inter,sans-serif;
+  background:#040407;
+  color:var(--fg);
+  height:100vh;
+  overflow:hidden;
 }
 
-/* ===== APP LAYOUT ===== */
-.app {
-  display: flex;
-  height: 100%;
-}
+/* ===== APP ===== */
+.app{display:flex;height:100%}
 
 /* ===== SIDEBAR ===== */
-nav {
-  width: 280px;
-  background: rgba(15,15,35,.92);
-  padding: 48px 32px;
-  border-right: 1px solid rgba(255,255,255,.06);
+nav{
+  width:300px;
+  background:
+    linear-gradient(180deg,rgba(20,20,50,.9),rgba(5,5,10,.98));
+  backdrop-filter:blur(18px);
+  border-right:1px solid rgba(255,255,255,.08);
+  padding:48px 36px;
 }
 
-.logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  letter-spacing: 6px;
-  margin-bottom: 56px;
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  letter-spacing:10px;
+  margin-bottom:80px;
 }
 
-.menu button {
-  all: unset;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-  color: var(--muted);
-  margin: 18px 0;
-  letter-spacing: 2px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all .3s ease;
+/* MENU */
+.menu button{
+  all:unset;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  width:100%;
+  padding:14px 0;
+  margin:14px 0;
+  cursor:pointer;
+  color:var(--muted);
+  letter-spacing:4px;
+  font-size:13px;
+  transition:.4s;
 }
 
-.menu button i {
-  width: 20px;
+.menu button i{width:20px}
+
+.menu button:hover{
+  color:var(--fg);
+  transform:translateX(8px);
 }
 
-.menu button:hover,
-.menu button.active {
-  color: var(--fg);
-  transform: translateX(6px);
+.menu button.active{
+  color:var(--fg);
 }
 
 /* ===== CONTENT ===== */
-main {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
+main{
+  flex:1;
+  position:relative;
+  overflow:hidden;
 }
 
-.page {
-  position: absolute;
-  inset: 0;
-  padding: 80px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(40px);
-  transition: opacity .6s ease, transform .6s ease;
-  overflow-y: auto;
+/* ===== DESKTOP HERO LAYER ===== */
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 20%,rgba(80,80,255,.12),transparent 40%),
+    url("https://images.unsplash.com/photo-1511379938547-c1f69419868d");
+  background-size:cover;
+  background-position:center;
+  filter:brightness(.35) contrast(1.1);
+  z-index:0;
 }
 
-.page.active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+.hero-noise{
+  position:absolute;
+  inset:0;
+  background:url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity:.15;
+  z-index:1;
+}
+
+/* ===== PAGE ===== */
+.page{
+  position:absolute;
+  inset:0;
+  padding:96px 120px;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(40px);
+  transition:.6s ease;
+  overflow-y:auto;
+  z-index:2;
+}
+
+.page.active{
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
 }
 
 /* ===== TYPO ===== */
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 72px;
-  letter-spacing: 8px;
-  margin-top: 0;
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:88px;
+  letter-spacing:14px;
+  margin:0;
 }
 
-h2 {
-  font-family: 'Playfair Display', serif;
-  letter-spacing: 4px;
+.subtitle{
+  margin-top:24px;
+  font-size:18px;
+  letter-spacing:3px;
+  max-width:520px;
+  color:#d0d0ff;
 }
 
-h2::after {
-  content: "";
-  display: block;
-  width: 70px;
-  height: 2px;
-  background: linear-gradient(to right, var(--accent), transparent);
-  margin-top: 12px;
+.section{
+  margin-top:120px;
 }
 
-p {
-  max-width: 720px;
-  line-height: 1.8;
-  color: #d8d8ff;
+h2{
+  font-family:'Playfair Display',serif;
+  letter-spacing:4px;
+  margin-bottom:24px;
 }
 
-/* ===== HOME ===== */
-.home {
-  background:
-    linear-gradient(to bottom, rgba(0,0,0,.5), #050508),
-    url("https://images.unsplash.com/photo-1511379938547-c1f69419868d");
-  background-size: cover;
-  background-position: center;
+p{
+  max-width:760px;
+  line-height:1.9;
+  color:#e0e0ff;
 }
 
-.home p {
-  font-size: 18px;
-  max-width: 560px;
-}
-
-/* ===== EMBEDS ===== */
-iframe {
-  width: 100%;
-  border-radius: 16px;
-  border: none;
-  margin: 24px 0;
+/* ===== MUSIC ===== */
+iframe{
+  width:100%;
+  max-width:720px;
+  border-radius:20px;
+  border:none;
+  margin:28px 0;
 }
 
 /* ===== GALLERY ===== */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
-  gap: 20px;
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:28px;
 }
 
-.gallery div {
-  height: 260px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 14px;
-  filter: grayscale(.4) brightness(.85);
-  transition: all .5s ease;
+.gallery div{
+  height:300px;
+  background-size:cover;
+  background-position:center;
+  border-radius:22px;
+  filter:grayscale(.4) brightness(.8);
+  transition:.6s;
 }
 
-.gallery div:hover {
-  filter: none;
-  transform: scale(1.04);
+.gallery div:hover{
+  filter:none;
+  transform:scale(1.05);
 }
 
-/* ===== FORM ===== */
-form {
-  max-width: 420px;
+/* ===== BOOKING ===== */
+form{max-width:420px}
+input,textarea,button{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  background:#14142d;
+  border:1px solid #2a2a55;
+  color:white;
 }
-
-input, textarea, button {
-  width: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  background: #14142d;
-  border: 1px solid #2a2a55;
-  color: white;
-}
-
-button {
-  cursor: pointer;
-  letter-spacing: 3px;
-  background: linear-gradient(135deg, #2a2a55, #15152f);
+button{
+  cursor:pointer;
+  letter-spacing:3px;
+  background:linear-gradient(135deg,#2a2a55,#15152f);
 }
 
 /* ===== MOBILE ===== */
-.menu-toggle {
-  display: none;
-}
+.menu-toggle{display:none}
 
-@media (max-width: 900px) {
-  nav {
-    position: fixed;
-    left: -280px;
-    top: 0;
-    height: 100%;
-    transition: left .4s ease;
-    z-index: 10;
+@media(max-width:900px){
+  nav{
+    position:fixed;
+    left:-300px;
+    height:100%;
+    transition:.4s;
+    z-index:10;
   }
-
-  nav.show {
-    left: 0;
+  nav.show{left:0}
+  .menu-toggle{
+    display:block;
+    position:fixed;
+    top:20px;
+    left:20px;
+    font-size:22px;
+    z-index:20;
+    cursor:pointer;
   }
-
-  .menu-toggle {
-    display: block;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    font-size: 22px;
-    z-index: 20;
-    cursor: pointer;
-  }
-
-  .page {
-    padding: 80px 24px;
-  }
-
-  h1 { font-size: 48px; }
+  .page{padding:80px 24px}
+  h1{font-size:48px}
+  .hero-bg,.hero-noise{display:none}
+  body{background:radial-gradient(circle at top,#14142e,#040407 70%)}
 }
 </style>
 </head>
@@ -244,79 +247,72 @@ button {
 </nav>
 
 <main>
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
 
-<section class="page active home" id="home">
-  <h1>VLOKA</h1>
-  <p><em>Intimate tales. Midnight melodies.</em></p>
-  <p>
-    A folk, indie pop, and slow rock artist from Indonesia.
-    Exploring silence, memory, and emotional tension through sound.
-  </p>
-</section>
+  <section class="page active" id="home">
+    <h1>VLOKA</h1>
+    <div class="subtitle">
+      Intimate tales. Midnight melodies.<br>
+      Folk • Indie Pop • Slow Rock
+    </div>
+  </section>
 
-<section class="page" id="about">
-  <h2>ABOUT</h2>
-  <p>
-    VLOKA’s music lives in the quiet spaces —
-    between late nights, unspoken feelings,
-    and restrained melodies.
-  </p>
-</section>
+  <section class="page" id="about">
+    <h2>ABOUT</h2>
+    <p>
+      VLOKA writes music for quiet nights.
+      For people who listen alone.
+      Each song is restraint, space, and emotional weight.
+    </p>
+  </section>
 
-<section class="page" id="music">
-  <h2>MUSIC</h2>
-  <iframe height="360" src="https://open.spotify.com/embed/artist/08AdZXkj1GugZSMDYXoaHS"></iframe>
-  <iframe height="400" src="https://www.youtube.com/embed/k6ARrNHHE8M"></iframe>
-  <iframe height="380" src="https://embed.music.apple.com/id/artist/vloka/1669532196"></iframe>
-</section>
+  <section class="page" id="music">
+    <h2>MUSIC</h2>
+    <iframe height="360" src="https://open.spotify.com/embed/artist/08AdZXkj1GugZSMDYXoaHS"></iframe>
+    <iframe height="400" src="https://www.youtube.com/embed/k6ARrNHHE8M"></iframe>
+    <iframe height="380" src="https://embed.music.apple.com/id/artist/vloka/1669532196"></iframe>
+  </section>
 
-<section class="page" id="gallery">
-  <h2>GALLERY</h2>
-  <div class="gallery">
-    <div style="background-image:url('https://images.unsplash.com/photo-1511379938547-c1f69419868d')"></div>
-    <div style="background-image:url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f')"></div>
-    <div style="background-image:url('https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2')"></div>
-  </div>
-</section>
+  <section class="page" id="gallery">
+    <h2>GALLERY</h2>
+    <div class="gallery">
+      <div style="background-image:url('https://images.unsplash.com/photo-1511379938547-c1f69419868d')"></div>
+      <div style="background-image:url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f')"></div>
+      <div style="background-image:url('https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2')"></div>
+    </div>
+  </section>
 
-<section class="page" id="booking">
-  <h2>BOOKING</h2>
-  <form action="https://formsubmit.co/philipuselangv@gmail.com" method="POST">
-    <input type="hidden" name="_subject" value="Booking Request - VLOKA">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Event details" required></textarea>
-    <button type="submit">SEND</button>
-  </form>
-</section>
-
+  <section class="page" id="booking">
+    <h2>BOOKING</h2>
+    <form action="https://formsubmit.co/philipuselangv@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Booking Request - VLOKA">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Event details" required></textarea>
+      <button>SEND</button>
+    </form>
+  </section>
 </main>
 </div>
 
 <script>
-const buttons = document.querySelectorAll(".menu button");
-const pages = document.querySelectorAll(".page");
-const sidebar = document.getElementById("sidebar");
-const toggle = document.querySelector(".menu-toggle");
+const btns=document.querySelectorAll(".menu button");
+const pages=document.querySelectorAll(".page");
+const sidebar=document.getElementById("sidebar");
+const toggle=document.querySelector(".menu-toggle");
 
-function openPage(id) {
-  buttons.forEach(b => b.classList.remove("active"));
-  pages.forEach(p => p.classList.remove("active"));
-
-  document.querySelector(`.menu button[data-page="${id}"]`).classList.add("active");
-  document.getElementById(id).classList.add("active");
-}
-
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    openPage(btn.dataset.page);
+btns.forEach(btn=>{
+  btn.onclick=()=>{
+    btns.forEach(b=>b.classList.remove("active"));
+    pages.forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.page).classList.add("active");
     sidebar.classList.remove("show");
-  });
+  }
 });
 
-toggle.addEventListener("click", () => {
-  sidebar.classList.toggle("show");
-});
+toggle.onclick=()=>sidebar.classList.toggle("show");
 </script>
 
 </body>
