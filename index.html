@@ -9,11 +9,9 @@
 
 <style>
 :root {
-  --bg1: #0c0c14;
-  --bg2: #141427;
-  --accent: #3a3a55;
   --fg: #f4f4f4;
-  --muted: #a4a4c0;
+  --muted: #a8a8c0;
+  --accent: #5a5a7a;
 }
 
 * { box-sizing: border-box; }
@@ -22,16 +20,8 @@ body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   color: var(--fg);
-  background: linear-gradient(-45deg, var(--bg1), var(--bg2), #10101c);
-  background-size: 400% 400%;
-  animation: bgMove 18s ease infinite;
+  background: #05050a;
   overflow-x: hidden;
-}
-
-@keyframes bgMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 /* grain */
@@ -40,81 +30,102 @@ body::after {
   position: fixed;
   inset: 0;
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.06;
+  opacity: 0.05;
   pointer-events: none;
+  z-index: 2;
 }
 
-section {
-  max-width: 880px;
-  margin: auto;
-  padding: 72px 20px;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: reveal 1.2s ease forwards;
-}
-
-section:nth-of-type(2) { animation-delay: .2s; }
-section:nth-of-type(3) { animation-delay: .4s; }
-section:nth-of-type(4) { animation-delay: .6s; }
-
-@keyframes reveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* HERO */
+/* HERO VIDEO */
 .hero {
-  padding: 120px 20px 72px;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(.45) contrast(1.1);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.3), #05050a 90%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
 }
 
 .hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 64px;
-  letter-spacing: 8px;
+  font-size: 72px;
+  letter-spacing: 10px;
   margin: 0;
 }
 
 .tagline {
-  margin-top: 12px;
+  margin-top: 14px;
   font-style: italic;
   color: var(--muted);
 }
 
-/* TITLES */
+/* SECTIONS */
+section {
+  max-width: 900px;
+  margin: auto;
+  padding: 80px 20px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 h2 {
   font-family: 'Playfair Display', serif;
   letter-spacing: 4px;
-  margin-bottom: 14px;
-  position: relative;
+  margin-bottom: 16px;
 }
 
 h2::after {
   content: "";
+  display: block;
   width: 60px;
   height: 2px;
   background: linear-gradient(to right, var(--accent), transparent);
-  display: block;
   margin-top: 10px;
 }
 
-/* TEXT */
 p {
   max-width: 720px;
-  color: #dadada;
+  color: #dcdcf0;
 }
 
 /* EMBEDS */
 .embed {
   margin: 32px 0;
-  transition: transform .4s ease, box-shadow .4s ease;
+  transition: transform .5s ease, box-shadow .5s ease;
 }
 
 .embed:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0,0,0,.4);
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0,0,0,.5);
 }
 
 iframe {
@@ -134,8 +145,8 @@ iframe {
 .links a::after {
   content: "";
   position: absolute;
-  bottom: -4px;
   left: 0;
+  bottom: -4px;
   width: 0;
   height: 1px;
   background: var(--fg);
@@ -153,7 +164,6 @@ iframe {
 /* FORM */
 form {
   max-width: 420px;
-  margin-top: 14px;
 }
 
 input, textarea, button {
@@ -177,13 +187,13 @@ button {
 
 button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0,0,0,.4);
+  box-shadow: 0 12px 28px rgba(0,0,0,.5);
 }
 
 /* FOOTER */
 footer {
   text-align: center;
-  padding: 48px 20px;
+  padding: 60px 20px;
   color: var(--muted);
   font-size: 13px;
 }
@@ -192,17 +202,23 @@ footer {
 
 <body>
 
-<section class="hero">
-  <h1>VLOKA</h1>
-  <p class="tagline">Intimate tales. Midnight melodies.</p>
-</section>
+<!-- HERO VIDEO -->
+<div class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="https://cdn.coverr.co/videos/coverr-night-drive-5129/1080p.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <h1>VLOKA</h1>
+    <p class="tagline">Intimate tales. Midnight melodies.</p>
+  </div>
+</div>
 
 <section>
   <h2>ABOUT</h2>
   <p>
     VLOKA is a folk, indie pop, and slow rock artist from Indonesia.
-    His music moves quietly — intimate stories, midnight feelings,
-    and emotional spaces in between.
+    His music lives in quiet moments — intimate stories, emotional spaces,
+    and late-night reflections.
   </p>
 </section>
 
@@ -242,6 +258,20 @@ footer {
 <footer>
   © VLOKA — All Rights Reserved
 </footer>
+
+<script>
+const sections = document.querySelectorAll("section");
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, { threshold: 0.2 });
+
+sections.forEach(section => observer.observe(section));
+</script>
 
 </body>
 </html>
