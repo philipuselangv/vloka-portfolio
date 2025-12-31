@@ -5,127 +5,111 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VLOKA</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --fg: #f5f5ff;
+  --bg: #07070d;
+  --panel: #0e0e18;
+  --fg: #f2f2ff;
   --muted: #9a9ab8;
   --accent: #6b6bff;
 }
 
 * { box-sizing: border-box; }
 
-html, body {
+body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at top, #0b0b18, #020205 70%);
+  background: radial-gradient(circle at top, #101024, #050508 70%);
   color: var(--fg);
-  overflow-x: hidden;
-}
-
-/* ===== CURSOR GLOW ===== */
-.cursor {
-  position: fixed;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(107,107,255,.15), transparent 60%);
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 999;
-}
-
-/* ===== HERO ===== */
-.hero {
-  position: relative;
+  display: flex;
   height: 100vh;
   overflow: hidden;
 }
 
-.hero video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(.45) contrast(1.15);
-  transform: scale(1.1);
+/* ===== LEFT MENU ===== */
+nav {
+  width: 240px;
+  background: rgba(10,10,20,.85);
+  border-right: 1px solid rgba(255,255,255,.05);
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
 }
 
-.hero::after {
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  letter-spacing: 6px;
+  margin-bottom: 60px;
+}
+
+.menu a {
+  color: var(--muted);
+  text-decoration: none;
+  margin: 14px 0;
+  letter-spacing: 3px;
+  font-size: 13px;
+  cursor: pointer;
+  position: relative;
+}
+
+.menu a.active,
+.menu a:hover {
+  color: var(--fg);
+}
+
+.menu a.active::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at center, transparent 40%, #020205 85%),
-    linear-gradient(to bottom, rgba(0,0,0,.2), #020205 95%);
+  left: -12px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  transform: translateY(-50%);
 }
 
-.hero-content {
+/* ===== CONTENT ===== */
+main {
+  flex: 1;
   position: relative;
-  z-index: 1;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
+  overflow: hidden;
 }
 
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(56px, 9vw, 96px);
-  letter-spacing: 14px;
-  margin: 0;
-}
-
-.tagline {
-  margin-top: 16px;
-  font-style: italic;
-  color: var(--muted);
-  letter-spacing: 1px;
-}
-
-/* SOUND TOGGLE */
-.sound {
+.page {
   position: absolute;
-  bottom: 40px;
-  right: 40px;
-  z-index: 2;
-  cursor: pointer;
-  font-size: 13px;
-  letter-spacing: 3px;
-  color: var(--muted);
-  border: 1px solid rgba(255,255,255,.15);
-  padding: 10px 14px;
-}
-
-/* ===== SECTIONS ===== */
-section {
-  max-width: 900px;
-  margin: auto;
-  padding: 70px 20px;
+  inset: 0;
+  padding: 80px;
   opacity: 0;
-  transform: translateY(60px);
-  transition: all 1.2s ease;
+  transform: translateY(40px);
+  transition: all .8s ease;
+  overflow-y: auto;
 }
 
-section.show {
+.page.active {
   opacity: 1;
   transform: translateY(0);
+  z-index: 1;
 }
 
-h2 {
+/* HEADINGS */
+h1, h2 {
   font-family: 'Playfair Display', serif;
-  letter-spacing: 5px;
-  margin-bottom: 18px;
+  letter-spacing: 4px;
+}
+
+h1 {
+  font-size: 64px;
+  margin-top: 0;
 }
 
 h2::after {
   content: "";
   display: block;
-  width: 70px;
+  width: 60px;
   height: 2px;
   background: linear-gradient(to right, var(--accent), transparent);
   margin-top: 12px;
@@ -134,176 +118,142 @@ h2::after {
 p {
   max-width: 720px;
   line-height: 1.7;
-  color: #d9d9ff;
+  color: #d6d6ff;
 }
 
-/* ===== EMBEDS ===== */
-.embed {
-  margin: 34px 0;
-  transition: transform .6s ease, box-shadow .6s ease;
-}
-
-.embed:hover {
-  transform: translateY(-10px) scale(1.01);
-  box-shadow: 0 40px 80px rgba(0,0,0,.6);
-}
-
+/* EMBEDS */
 iframe {
   width: 100%;
-  border-radius: 18px;
+  border-radius: 16px;
   border: none;
+  margin: 24px 0;
 }
 
-/* LINKS */
-.links a {
-  margin-right: 20px;
-  color: var(--muted);
-  text-decoration: none;
-  position: relative;
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+  gap: 18px;
 }
 
-.links a::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--fg);
-  transition: width .3s ease;
+.gallery div {
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 14px;
+  filter: grayscale(.4) brightness(.85);
+  transition: all .6s ease;
 }
 
-.links a:hover::after { width: 100%; }
-.links a:hover { color: var(--fg); }
+.gallery div:hover {
+  filter: none;
+  transform: scale(1.03);
+}
 
 /* FORM */
-form { max-width: 420px; }
+form {
+  max-width: 420px;
+}
 
 input, textarea, button {
   width: 100%;
   padding: 14px;
   margin: 10px 0;
-  background: rgba(20,20,60,.6);
+  background: #12122a;
   border: 1px solid #2a2a55;
   color: white;
 }
 
 button {
   cursor: pointer;
-  letter-spacing: 4px;
-  background: linear-gradient(135deg, #2a2a55, #151530);
-}
-
-footer {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--muted);
-  font-size: 13px;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, #2a2a55, #141430);
 }
 </style>
 </head>
 
 <body>
 
-<div class="cursor"></div>
-
-<!-- HERO -->
-<div class="hero">
-  <video autoplay muted loop playsinline id="heroVideo">
-    <source src="https://cdn.coverr.co/videos/coverr-night-drive-5129/1080p.mp4" type="video/mp4">
-  </video>
-
-  <div class="hero-content">
-    <h1>VLOKA</h1>
-    <p class="tagline">Intimate tales. Midnight melodies.</p>
+<nav>
+  <div class="logo">VLOKA</div>
+  <div class="menu">
+    <a data-page="home" class="active">HOME</a>
+    <a data-page="about">ABOUT</a>
+    <a data-page="music">MUSIC</a>
+    <a data-page="gallery">GALLERY</a>
+    <a data-page="booking">BOOKING</a>
   </div>
+</nav>
 
-  <div class="sound" id="soundToggle">SOUND OFF</div>
+<main>
+
+<!-- HOME -->
+<div class="page active" id="home">
+  <h1>VLOKA</h1>
+  <p><em>Intimate tales. Midnight melodies.</em></p>
 </div>
 
-<!-- AMBIENT SOUND -->
-<audio id="ambient" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_8d75e9f8a5.mp3" type="audio/mpeg">
-</audio>
-
-<section>
+<!-- ABOUT -->
+<div class="page" id="about">
   <h2>ABOUT</h2>
   <p>
     VLOKA is an indie folk and slow rock artist from Indonesia.
-    His music exists in the quiet — between memories, shadows,
-    and late-night solitude.
+    His work explores silence, intimacy, and emotional tension
+    through restrained melodies and poetic narratives.
   </p>
-</section>
+</div>
 
-<section>
+<!-- MUSIC -->
+<div class="page" id="music">
   <h2>MUSIC</h2>
 
-  <div class="embed">
-    <iframe src="https://open.spotify.com/embed/artist/08AdZXkj1GugZSMDYXoaHS" height="360"></iframe>
-  </div>
+  <iframe height="360"
+    src="https://open.spotify.com/embed/artist/08AdZXkj1GugZSMDYXoaHS"></iframe>
 
-  <div class="embed">
-    <iframe src="https://www.youtube.com/embed/k6ARrNHHE8M?playsinline=1" height="400" allowfullscreen></iframe>
-  </div>
+  <iframe height="400"
+    src="https://www.youtube.com/embed/k6ARrNHHE8M"></iframe>
 
-  <div class="embed">
-    <iframe src="https://embed.music.apple.com/id/artist/vloka/1669532196" height="380"></iframe>
-  </div>
+  <iframe height="380"
+    src="https://embed.music.apple.com/id/artist/vloka/1669532196"></iframe>
+</div>
 
-  <div class="links">
-    <a href="https://open.spotify.com/artist/08AdZXkj1GugZSMDYXoaHS" target="_blank">Spotify</a>
-    <a href="https://www.youtube.com/@anangloka" target="_blank">YouTube</a>
-    <a href="https://music.apple.com/id/artist/vloka/1669532196" target="_blank">Apple Music</a>
+<!-- GALLERY -->
+<div class="page" id="gallery">
+  <h2>GALLERY</h2>
+  <div class="gallery">
+    <div style="background-image:url('https://images.unsplash.com/photo-1511379938547-c1f69419868d')"></div>
+    <div style="background-image:url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4')"></div>
+    <div style="background-image:url('https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2')"></div>
+    <div style="background-image:url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f')"></div>
   </div>
-</section>
+</div>
 
-<section>
+<!-- BOOKING -->
+<div class="page" id="booking">
   <h2>BOOKING</h2>
   <form action="https://formsubmit.co/philipuselangv@gmail.com" method="POST">
     <input type="hidden" name="_subject" value="Booking Request - VLOKA">
     <input type="text" name="name" placeholder="Your Name" required>
     <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Booking details" required></textarea>
+    <textarea name="message" placeholder="Event / booking details" required></textarea>
     <button type="submit">SEND</button>
   </form>
-</section>
+</div>
 
-<footer>
-  © VLOKA — All Rights Reserved
-</footer>
+</main>
 
 <script>
-/* CURSOR */
-const cursor = document.querySelector(".cursor");
-document.addEventListener("mousemove", e => {
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-});
+const links = document.querySelectorAll(".menu a");
+const pages = document.querySelectorAll(".page");
 
-/* SCROLL REVEAL */
-const sections = document.querySelectorAll("section");
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add("show");
-  });
-}, { threshold: 0.25 });
-sections.forEach(s => observer.observe(s));
+links.forEach(link => {
+  link.onclick = () => {
+    links.forEach(l => l.classList.remove("active"));
+    pages.forEach(p => p.classList.remove("active"));
 
-/* SOUND TOGGLE */
-const sound = document.getElementById("ambient");
-const toggle = document.getElementById("soundToggle");
-let playing = false;
-
-toggle.onclick = () => {
-  playing = !playing;
-  toggle.textContent = playing ? "SOUND ON" : "SOUND OFF";
-  playing ? sound.play() : sound.pause();
-};
-
-/* PARALLAX HERO */
-window.addEventListener("scroll", () => {
-  const y = window.scrollY * 0.25;
-  document.getElementById("heroVideo").style.transform = `scale(1.1) translateY(${y}px)`;
+    link.classList.add("active");
+    document.getElementById(link.dataset.page).classList.add("active");
+  };
 });
 </script>
 
