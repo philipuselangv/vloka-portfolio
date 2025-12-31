@@ -25,7 +25,7 @@ body{
   overflow:hidden;
 }
 
-/* ===== INTRO ===== */
+/* INTRO */
 #intro{
   position:fixed;
   inset:0;
@@ -62,10 +62,10 @@ body{
 }
 @keyframes fadeIn{to{opacity:1}}
 
-/* ===== APP ===== */
+/* APP */
 .app{display:flex;height:100%}
 
-/* ===== SIDEBAR ===== */
+/* SIDEBAR */
 nav{
   width:300px;
   padding:48px 36px;
@@ -113,10 +113,10 @@ nav{
 }
 .menu button.active::before{height:100%}
 
-/* ===== MAIN ===== */
+/* MAIN */
 main{flex:1;position:relative;overflow:hidden}
 
-/* ===== BACKGROUND ===== */
+/* BACKGROUND */
 .hero-bg{
   position:absolute;
   inset:-10%;
@@ -127,7 +127,7 @@ main{flex:1;position:relative;overflow:hidden}
   background-position:center 25%;
 }
 
-/* ===== PAGE ===== */
+/* PAGE */
 .page{
   position:absolute;
   inset:0;
@@ -144,7 +144,7 @@ main{flex:1;position:relative;overflow:hidden}
   pointer-events:auto;
 }
 
-/* ===== TYPO ===== */
+/* TYPO */
 h1{
   font-family:'Playfair Display',serif;
   font-size:92px;
@@ -158,14 +158,41 @@ h1{
 h2{
   font-family:'Playfair Display',serif;
   letter-spacing:4px;
-  margin-bottom:24px;
+  margin-bottom:32px;
 }
 p{
   max-width:760px;
   line-height:1.9;
 }
 
-/* ===== GALLERY ===== */
+/* ===== MUSIC LAYOUT (REFINED) ===== */
+.music-wrap{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:40px;
+}
+
+.music-main iframe{
+  width:100%;
+  height:380px;
+  border-radius:22px;
+  border:none;
+}
+
+.music-side{
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+
+.music-side iframe{
+  width:100%;
+  height:180px;
+  border-radius:20px;
+  border:none;
+}
+
+/* GALLERY */
 .gallery{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -185,7 +212,7 @@ p{
   box-shadow:0 24px 70px rgba(0,0,0,.6);
 }
 
-/* ===== LIGHTBOX ===== */
+/* LIGHTBOX */
 .lightbox{
   position:fixed;
   inset:0;
@@ -202,7 +229,7 @@ p{
   border-radius:18px;
 }
 
-/* ===== BOOKING ===== */
+/* BOOKING */
 form{max-width:420px}
 input,textarea,button{
   width:100%;
@@ -213,8 +240,6 @@ input,textarea,button{
   color:white;
 }
 button{cursor:pointer;letter-spacing:3px}
-
-/* NOTIFICATION */
 .notice{
   display:none;
   margin-bottom:16px;
@@ -222,7 +247,7 @@ button{cursor:pointer;letter-spacing:3px}
   letter-spacing:2px;
 }
 
-/* ===== MOBILE ===== */
+/* MOBILE */
 .menu-toggle{display:none}
 @media(max-width:900px){
   body{overflow:auto}
@@ -243,6 +268,14 @@ button{cursor:pointer;letter-spacing:3px}
   }
   .page{padding:90px 24px}
   h1{font-size:54px}
+
+  /* MUSIC MOBILE */
+  .music-wrap{
+    grid-template-columns:1fr;
+  }
+  .music-main iframe{height:300px}
+  .music-side iframe{height:200px}
+
   .gallery{grid-template-columns:1fr}
 }
 </style>
@@ -295,9 +328,17 @@ button{cursor:pointer;letter-spacing:3px}
 
   <section class="page" id="music">
     <h2>MUSIC</h2>
-    <iframe height="360" src="https://open.spotify.com/embed/artist/08AdZXkj1GugZSMDYXoaHS"></iframe>
-    <iframe height="400" src="https://www.youtube.com/embed/k6ARrNHHE8M"></iframe>
-    <iframe height="380" src="https://embed.music.apple.com/id/artist/vloka/1669532196"></iframe>
+
+    <div class="music-wrap">
+      <div class="music-main">
+        <iframe src="https://open.spotify.com/embed/artist/08AdZXkj1GugZSMDYXoaHS"></iframe>
+      </div>
+
+      <div class="music-side">
+        <iframe src="https://www.youtube.com/embed/k6ARrNHHE8M"></iframe>
+        <iframe src="https://embed.music.apple.com/id/artist/vloka/1669532196"></iframe>
+      </div>
+    </div>
   </section>
 
   <section class="page" id="gallery">
@@ -358,13 +399,11 @@ document.querySelectorAll(".gallery-item").forEach(i=>{
 });
 lightbox.onclick=()=>lightbox.classList.remove("show");
 
-/* BOOKING SUBMIT (NO REDIRECT) */
+/* BOOKING */
 const form=document.getElementById("bookingForm");
 const notice=document.getElementById("notice");
-
 form.addEventListener("submit",e=>{
   e.preventDefault();
-
   fetch("https://formsubmit.co/ajax/vloka.management@gmail.com",{
     method:"POST",
     headers:{'Content-Type':'application/json'},
