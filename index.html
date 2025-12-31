@@ -10,11 +10,9 @@
 
 <style>
 :root{
-  --bg:#040407;
-  --panel:#0b0b18;
-  --fg:#f4f4ff;
-  --muted:#9b9bb5;
-  --accent:#6b6bff;
+  --bg:#050508;
+  --fg:#f2f2ff;
+  --muted:#9a9ab5;
 }
 
 *{box-sizing:border-box}
@@ -22,33 +20,30 @@
 body{
   margin:0;
   font-family:Inter,sans-serif;
-  background:#040407;
+  background:var(--bg);
   color:var(--fg);
   height:100vh;
   overflow:hidden;
 }
 
-/* ===== APP ===== */
+/* ===== LAYOUT ===== */
 .app{display:flex;height:100%}
 
 /* ===== SIDEBAR ===== */
 nav{
   width:300px;
-  background:
-    linear-gradient(180deg,rgba(20,20,50,.9),rgba(5,5,10,.98));
-  backdrop-filter:blur(18px);
-  border-right:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,#0c0c1e,#040407);
   padding:48px 36px;
+  border-right:1px solid rgba(255,255,255,.08);
 }
 
 .logo{
   font-family:'Playfair Display',serif;
   font-size:32px;
   letter-spacing:10px;
-  margin-bottom:80px;
+  margin-bottom:72px;
 }
 
-/* MENU */
 .menu button{
   all:unset;
   display:flex;
@@ -64,34 +59,28 @@ nav{
   transition:.4s;
 }
 
-.menu button i{width:20px}
+.menu button i{width:22px}
 
 .menu button:hover{
   color:var(--fg);
-  transform:translateX(8px);
+  transform:translateX(10px);
 }
 
-.menu button.active{
-  color:var(--fg);
-}
+.menu button.active{color:var(--fg)}
 
-/* ===== CONTENT ===== */
-main{
-  flex:1;
-  position:relative;
-  overflow:hidden;
-}
+/* ===== MAIN ===== */
+main{flex:1;position:relative;overflow:hidden}
 
-/* ===== DESKTOP HERO LAYER ===== */
+/* BACKGROUND */
 .hero-bg{
   position:absolute;
   inset:0;
   background:
-    radial-gradient(circle at 30% 20%,rgba(80,80,255,.12),transparent 40%),
-    url("https://images.unsplash.com/photo-1511379938547-c1f69419868d");
+    radial-gradient(circle at 30% 20%,rgba(80,80,255,.15),transparent 40%),
+    url("assets/images/background.png");
   background-size:cover;
   background-position:center;
-  filter:brightness(.35) contrast(1.1);
+  filter:brightness(.35);
   z-index:0;
 }
 
@@ -110,7 +99,7 @@ main{
   padding:96px 120px;
   opacity:0;
   pointer-events:none;
-  transform:translateY(40px);
+  transform:translateY(30px);
   transition:.6s ease;
   overflow-y:auto;
   z-index:2;
@@ -138,10 +127,6 @@ h1{
   color:#d0d0ff;
 }
 
-.section{
-  margin-top:120px;
-}
-
 h2{
   font-family:'Playfair Display',serif;
   letter-spacing:4px;
@@ -163,29 +148,53 @@ iframe{
   margin:28px 0;
 }
 
-/* ===== GALLERY ===== */
+/* ===== GALLERY (KONDISI AWAL) ===== */
 .gallery{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:28px;
+  gap:24px;
 }
 
-.gallery div{
-  height:300px;
+.gallery-item{
+  height:260px;
   background-size:cover;
   background-position:center;
-  border-radius:22px;
-  filter:grayscale(.4) brightness(.8);
-  transition:.6s;
+  border-radius:20px;
+  cursor:pointer;
+  transition:.4s;
 }
 
-.gallery div:hover{
-  filter:none;
-  transform:scale(1.05);
+.gallery-item:hover{
+  transform:scale(1.04);
+}
+
+/* Fokus wajah naik */
+.gallery-item.face-up{
+  background-position:center top;
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.lightbox.show{display:flex}
+
+.lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:16px;
 }
 
 /* ===== BOOKING ===== */
 form{max-width:420px}
+
 input,textarea,button{
   width:100%;
   padding:14px;
@@ -194,10 +203,10 @@ input,textarea,button{
   border:1px solid #2a2a55;
   color:white;
 }
+
 button{
   cursor:pointer;
   letter-spacing:3px;
-  background:linear-gradient(135deg,#2a2a55,#15152f);
 }
 
 /* ===== MOBILE ===== */
@@ -212,6 +221,7 @@ button{
     z-index:10;
   }
   nav.show{left:0}
+
   .menu-toggle{
     display:block;
     position:fixed;
@@ -221,10 +231,12 @@ button{
     z-index:20;
     cursor:pointer;
   }
+
   .page{padding:80px 24px}
   h1{font-size:48px}
   .hero-bg,.hero-noise{display:none}
   body{background:radial-gradient(circle at top,#14142e,#040407 70%)}
+  .gallery{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -252,19 +264,12 @@ button{
 
   <section class="page active" id="home">
     <h1>VLOKA</h1>
-    <div class="subtitle">
-      Intimate tales. Midnight melodies.<br>
-      Folk • Indie Pop • Slow Rock
-    </div>
+    <div class="subtitle">Intimate tales. Midnight melodies.</div>
   </section>
 
   <section class="page" id="about">
     <h2>ABOUT</h2>
-    <p>
-      VLOKA writes music for quiet nights.
-      For people who listen alone.
-      Each song is restraint, space, and emotional weight.
-    </p>
+    <p>VLOKA is an Indonesian indie artist crafting intimate folk and slow rock soundscapes.</p>
   </section>
 
   <section class="page" id="music">
@@ -277,15 +282,18 @@ button{
   <section class="page" id="gallery">
     <h2>GALLERY</h2>
     <div class="gallery">
-      <div style="background-image:url('https://images.unsplash.com/photo-1511379938547-c1f69419868d')"></div>
-      <div style="background-image:url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f')"></div>
-      <div style="background-image:url('https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2')"></div>
+      <div class="gallery-item face-up" style="background-image:url('assets/images/vloka1.jpg')"></div>
+      <div class="gallery-item face-up" style="background-image:url('assets/images/vloka2.jpg')"></div>
+      <div class="gallery-item face-up" style="background-image:url('assets/images/vloka3.jpg')"></div>
+      <div class="gallery-item" style="background-image:url('assets/images/vloka4.jpg')"></div>
+      <div class="gallery-item" style="background-image:url('assets/images/vloka5.jpg')"></div>
+      <div class="gallery-item" style="background-image:url('assets/images/vloka6.png')"></div>
     </div>
   </section>
 
   <section class="page" id="booking">
     <h2>BOOKING</h2>
-    <form action="https://formsubmit.co/philipuselangv@gmail.com" method="POST">
+    <form action="https://formsubmit.co/vloka.management@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="Booking Request - VLOKA">
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="email" name="email" placeholder="Your Email" required>
@@ -293,10 +301,17 @@ button{
       <button>SEND</button>
     </form>
   </section>
+
 </main>
 </div>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <img id="lightbox-img">
+</div>
+
 <script>
+/* MENU */
 const btns=document.querySelectorAll(".menu button");
 const pages=document.querySelectorAll(".page");
 const sidebar=document.getElementById("sidebar");
@@ -313,6 +328,24 @@ btns.forEach(btn=>{
 });
 
 toggle.onclick=()=>sidebar.classList.toggle("show");
+
+/* LIGHTBOX */
+const lightbox=document.getElementById("lightbox");
+const lightboxImg=document.getElementById("lightbox-img");
+
+document.querySelectorAll(".gallery-item").forEach(item=>{
+  item.onclick=()=>{
+    const bg=item.style.backgroundImage;
+    const url=bg.slice(5,-2);
+    lightboxImg.src=url;
+    lightbox.classList.add("show");
+  };
+});
+
+lightbox.onclick=()=>lightbox.classList.remove("show");
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape") lightbox.classList.remove("show");
+});
 </script>
 
 </body>
