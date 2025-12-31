@@ -5,37 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VLOKA</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --fg: #f4f4f4;
-  --muted: #a8a8c0;
-  --accent: #5a5a7a;
+  --fg: #f5f5ff;
+  --muted: #9a9ab8;
+  --accent: #6b6bff;
 }
 
 * { box-sizing: border-box; }
 
-body {
+html, body {
   margin: 0;
   font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at top, #0b0b18, #020205 70%);
   color: var(--fg);
-  background: #05050a;
   overflow-x: hidden;
 }
 
-/* grain */
-body::after {
-  content: "";
+/* ===== CURSOR GLOW ===== */
+.cursor {
   position: fixed;
-  inset: 0;
-  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.05;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,107,255,.15), transparent 60%);
   pointer-events: none;
-  z-index: 2;
+  transform: translate(-50%, -50%);
+  z-index: 999;
 }
 
-/* HERO VIDEO */
+/* ===== HERO ===== */
 .hero {
   position: relative;
   height: 100vh;
@@ -48,14 +49,17 @@ body::after {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(.45) contrast(1.1);
+  filter: brightness(.45) contrast(1.15);
+  transform: scale(1.1);
 }
 
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,.3), #05050a 90%);
+  background:
+    radial-gradient(circle at center, transparent 40%, #020205 85%),
+    linear-gradient(to bottom, rgba(0,0,0,.2), #020205 95%);
 }
 
 .hero-content {
@@ -71,25 +75,40 @@ body::after {
 
 .hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 72px;
-  letter-spacing: 10px;
+  font-size: clamp(56px, 9vw, 96px);
+  letter-spacing: 14px;
   margin: 0;
 }
 
 .tagline {
-  margin-top: 14px;
+  margin-top: 16px;
   font-style: italic;
   color: var(--muted);
+  letter-spacing: 1px;
 }
 
-/* SECTIONS */
+/* SOUND TOGGLE */
+.sound {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  z-index: 2;
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 10px 14px;
+}
+
+/* ===== SECTIONS ===== */
 section {
   max-width: 900px;
   margin: auto;
-  padding: 80px 20px;
+  padding: 70px 20px;
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s ease, transform 1s ease;
+  transform: translateY(60px);
+  transition: all 1.2s ease;
 }
 
 section.show {
@@ -99,98 +118,82 @@ section.show {
 
 h2 {
   font-family: 'Playfair Display', serif;
-  letter-spacing: 4px;
-  margin-bottom: 16px;
+  letter-spacing: 5px;
+  margin-bottom: 18px;
 }
 
 h2::after {
   content: "";
   display: block;
-  width: 60px;
+  width: 70px;
   height: 2px;
   background: linear-gradient(to right, var(--accent), transparent);
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 p {
   max-width: 720px;
-  color: #dcdcf0;
+  line-height: 1.7;
+  color: #d9d9ff;
 }
 
-/* EMBEDS */
+/* ===== EMBEDS ===== */
 .embed {
-  margin: 32px 0;
-  transition: transform .5s ease, box-shadow .5s ease;
+  margin: 34px 0;
+  transition: transform .6s ease, box-shadow .6s ease;
 }
 
 .embed:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 30px 60px rgba(0,0,0,.5);
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 40px 80px rgba(0,0,0,.6);
 }
 
 iframe {
   width: 100%;
-  border-radius: 16px;
+  border-radius: 18px;
   border: none;
 }
 
 /* LINKS */
 .links a {
+  margin-right: 20px;
   color: var(--muted);
   text-decoration: none;
-  margin-right: 18px;
   position: relative;
 }
 
 .links a::after {
   content: "";
   position: absolute;
+  bottom: -6px;
   left: 0;
-  bottom: -4px;
   width: 0;
   height: 1px;
   background: var(--fg);
   transition: width .3s ease;
 }
 
-.links a:hover::after {
-  width: 100%;
-}
-
-.links a:hover {
-  color: var(--fg);
-}
+.links a:hover::after { width: 100%; }
+.links a:hover { color: var(--fg); }
 
 /* FORM */
-form {
-  max-width: 420px;
-}
+form { max-width: 420px; }
 
 input, textarea, button {
   width: 100%;
   padding: 14px;
-  margin: 8px 0;
-  background: rgba(20,20,40,.6);
-  border: 1px solid #2a2a45;
+  margin: 10px 0;
+  background: rgba(20,20,60,.6);
+  border: 1px solid #2a2a55;
   color: white;
-  font-family: inherit;
 }
-
-textarea { min-height: 120px; }
 
 button {
   cursor: pointer;
-  letter-spacing: 3px;
-  background: linear-gradient(135deg, #23233a, #141428);
-  transition: transform .3s ease, box-shadow .3s ease;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, #2a2a55, #151530);
 }
 
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0,0,0,.5);
-}
-
-/* FOOTER */
 footer {
   text-align: center;
   padding: 60px 20px;
@@ -202,23 +205,33 @@ footer {
 
 <body>
 
-<!-- HERO VIDEO -->
+<div class="cursor"></div>
+
+<!-- HERO -->
 <div class="hero">
-  <video autoplay muted loop playsinline>
+  <video autoplay muted loop playsinline id="heroVideo">
     <source src="https://cdn.coverr.co/videos/coverr-night-drive-5129/1080p.mp4" type="video/mp4">
   </video>
+
   <div class="hero-content">
     <h1>VLOKA</h1>
     <p class="tagline">Intimate tales. Midnight melodies.</p>
   </div>
+
+  <div class="sound" id="soundToggle">SOUND OFF</div>
 </div>
+
+<!-- AMBIENT SOUND -->
+<audio id="ambient" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_8d75e9f8a5.mp3" type="audio/mpeg">
+</audio>
 
 <section>
   <h2>ABOUT</h2>
   <p>
-    VLOKA is a folk, indie pop, and slow rock artist from Indonesia.
-    His music lives in quiet moments — intimate stories, emotional spaces,
-    and late-night reflections.
+    VLOKA is an indie folk and slow rock artist from Indonesia.
+    His music exists in the quiet — between memories, shadows,
+    and late-night solitude.
   </p>
 </section>
 
@@ -230,7 +243,7 @@ footer {
   </div>
 
   <div class="embed">
-    <iframe src="https://www.youtube.com/embed/k6ARrNHHE8M?controls=1&playsinline=1" height="400" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/k6ARrNHHE8M?playsinline=1" height="400" allowfullscreen></iframe>
   </div>
 
   <div class="embed">
@@ -250,7 +263,7 @@ footer {
     <input type="hidden" name="_subject" value="Booking Request - VLOKA">
     <input type="text" name="name" placeholder="Your Name" required>
     <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Event / booking details" required></textarea>
+    <textarea name="message" placeholder="Booking details" required></textarea>
     <button type="submit">SEND</button>
   </form>
 </section>
@@ -260,17 +273,38 @@ footer {
 </footer>
 
 <script>
-const sections = document.querySelectorAll("section");
+/* CURSOR */
+const cursor = document.querySelector(".cursor");
+document.addEventListener("mousemove", e => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
 
+/* SCROLL REVEAL */
+const sections = document.querySelectorAll("section");
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-    }
+    if (entry.isIntersecting) entry.target.classList.add("show");
   });
-}, { threshold: 0.2 });
+}, { threshold: 0.25 });
+sections.forEach(s => observer.observe(s));
 
-sections.forEach(section => observer.observe(section));
+/* SOUND TOGGLE */
+const sound = document.getElementById("ambient");
+const toggle = document.getElementById("soundToggle");
+let playing = false;
+
+toggle.onclick = () => {
+  playing = !playing;
+  toggle.textContent = playing ? "SOUND ON" : "SOUND OFF";
+  playing ? sound.play() : sound.pause();
+};
+
+/* PARALLAX HERO */
+window.addEventListener("scroll", () => {
+  const y = window.scrollY * 0.25;
+  document.getElementById("heroVideo").style.transform = `scale(1.1) translateY(${y}px)`;
+});
 </script>
 
 </body>
