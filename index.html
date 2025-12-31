@@ -5,66 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VLOKA</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg: #0a0a0a;
-  --fg: #f1f1f1;
-  --muted: #9a9a9a;
+  --bg-dark: #0b0b0f;
+  --bg-soft: #12121a;
+  --fg-main: #f2f2f2;
+  --fg-muted: #a0a0b0;
+  --accent: #2f2f3a;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--fg);
   font-family: 'Inter', sans-serif;
-  line-height: 1.7;
+  color: var(--fg-main);
+  background:
+    radial-gradient(circle at top, #181824, #0b0b0f 60%);
 }
 
-/* subtle grain */
+/* subtle texture */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.06;
+  opacity: 0.05;
   pointer-events: none;
 }
 
 section {
-  max-width: 960px;
+  max-width: 880px;
   margin: auto;
-  padding: 72px 24px;
+  padding: 56px 20px;
 }
 
+/* HERO */
 .hero {
+  padding: 96px 20px 56px;
   text-align: center;
-  padding: 120px 24px;
 }
 
-h1 {
+.hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 64px;
+  font-size: 60px;
   letter-spacing: 6px;
-  margin-bottom: 8px;
+  margin: 0;
 }
 
 .tagline {
+  margin-top: 10px;
   font-style: italic;
-  color: var(--muted);
+  color: var(--fg-muted);
 }
 
+/* SECTION HEADINGS */
 h2 {
   font-family: 'Playfair Display', serif;
   letter-spacing: 3px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  position: relative;
 }
 
+h2::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  margin-top: 10px;
+}
+
+/* TEXT */
+p {
+  color: #d6d6e0;
+  max-width: 720px;
+}
+
+/* EMBEDS */
 .embed {
-  margin: 32px 0;
+  margin: 28px 0;
 }
 
 iframe {
@@ -73,8 +97,13 @@ iframe {
   border: none;
 }
 
+/* LINKS */
+.links {
+  margin-top: 12px;
+}
+
 .links a {
-  color: var(--muted);
+  color: var(--fg-muted);
   text-decoration: none;
   margin-right: 16px;
 }
@@ -83,78 +112,84 @@ iframe {
   color: white;
 }
 
+/* BOOKING */
 form {
   max-width: 420px;
+  margin-top: 12px;
 }
 
 input, textarea, button {
   width: 100%;
   padding: 14px;
-  margin: 10px 0;
-  background: #111;
-  border: 1px solid #333;
+  margin: 8px 0;
+  background: #151522;
+  border: 1px solid #2a2a3a;
   color: white;
+  font-family: inherit;
+}
+
+textarea {
+  min-height: 120px;
 }
 
 button {
   cursor: pointer;
-  background: #1a1a1a;
+  background: linear-gradient(135deg, #1e1e2f, #14141f);
   letter-spacing: 2px;
 }
 
+/* FOOTER */
 footer {
   text-align: center;
-  padding: 48px 20px;
-  color: var(--muted);
-  font-size: 14px;
+  padding: 40px 20px 56px;
+  color: var(--fg-muted);
+  font-size: 13px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HERO -->
 <section class="hero">
   <h1>VLOKA</h1>
   <p class="tagline">Intimate tales. Midnight melodies.</p>
 </section>
 
+<!-- ABOUT -->
 <section>
   <h2>ABOUT</h2>
   <p>
     VLOKA is a folk, indie pop, and slow rock artist from Indonesia.
-    His music explores intimate storytelling and late-night emotions.
+    His music explores intimate storytelling, subtle emotions,
+    and late-night atmospheres.
   </p>
 </section>
 
+<!-- MUSIC -->
 <section>
   <h2>MUSIC</h2>
 
-  <!-- SPOTIFY -->
   <div class="embed">
     <iframe
       src="https://open.spotify.com/embed/artist/08AdZXkj1GugZSMDYXoaHS"
-      height="380"
+      height="360"
       allow="encrypted-media">
     </iframe>
   </div>
 
-  <!-- YOUTUBE (NO AUTOPLAY FOR LOCAL SAFETY) -->
   <div class="embed">
     <iframe
-      height="420"
+      height="400"
       src="https://www.youtube.com/embed/k6ARrNHHE8M?controls=1&playsinline=1"
       allow="encrypted-media"
       allowfullscreen>
     </iframe>
-    <p style="color:#777;font-size:14px">
-      ▶ Autoplay will activate on live website
-    </p>
   </div>
 
-  <!-- APPLE MUSIC BIG -->
   <div class="embed">
     <iframe
-      height="420"
+      height="380"
       allow="encrypted-media"
       src="https://embed.music.apple.com/id/artist/vloka/1669532196">
     </iframe>
@@ -167,6 +202,7 @@ footer {
   </div>
 </section>
 
+<!-- BOOKING -->
 <section>
   <h2>BOOKING</h2>
   <form action="https://formsubmit.co/philipuselangv@gmail.com" method="POST">
